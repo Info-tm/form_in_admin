@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
-import {FreelancerInterface, Multy} from './freelancer.interface';
+import {FreelancerInterface} from './freelancer.interface';
 
 const now = new Date();
 // Range datepicker Start
@@ -139,6 +139,9 @@ export class FreelancerComponent implements OnInit {
   }
   clickEventRadio1(){
     this.order.select = 'E-50051'
+  }
+  clickEventRadioType(value){
+    this.order.orderType = value
   }
   clickEventDisabled(){
     this.order.select = 0

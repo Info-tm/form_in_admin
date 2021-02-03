@@ -123,26 +123,27 @@
             </div>
           </div>
             <hr/>
-            <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12" style="margin-bottom: 50px">
+
               <!--One open panel at a time Starts-->
               <ngb-accordion
                 [closeOthers]="true"
-                (click)="orderType('premium')"
-                activeIds="ngb-panel-0"
+                activeIds="static-1"
               >
                 <ngb-panel id="static-1" >
                   <ng-template ngbPanelTitle>
 
                     <span>
-                    <div class="radio">
-                      <input type="radio" name="basic-radio-1" id="radio1" checked (click)="clickEventRadio1()">
-                      <label for="radio1">Premium </label>
-                    </div>
+                      <div class="radio">
+                        <input type="radio" name="basic-radio-10" id="radio10" checked (click)="clickEventRadioType('Premium')">
+                        <label for="radio10">Premium </label>
+                      </div>
                     </span>
                   </ng-template>
-                  <ng-template ngbPanelContent>
-                    <div class="row">
+                  <ng-template ngbPanelContent >
+                    <div class="row" style="min-height: 350px!important;">
                       <div class="col-lg-6 col-md-6 col-sm-12">
+
 
 <!--                        Выбор диапозона дат-->
 
@@ -284,32 +285,46 @@
                     </div>
                   </ng-template>
                 </ngb-panel>
-                <ngb-panel id="static-2">
-                  <ng-template ngbPanelTitle (click)="orderType('top')">
-                                        <span>
-                    <div class="radio">
-                      <input type="radio" name="basic-radio-1" id="radio10" (click)="clickEventRadio1()">
-                      <label for="radio10">Top </label>
-                    </div>
+                <ngb-panel id="static-2" >
+                  <ng-template ngbPanelTitle >
+                    <span>
+                      <div class="radio">
+                        <input type="radio" name="basic-radio-10" id="radio11" (click)="clickEventRadioType('Top')">
+                        <label for="radio11">Top </label>
+                      </div>
                     </span>
+                    <hr/>
                   </ng-template>
                   <ng-template ngbPanelContent>
                     <p class="m-0">
-                      Тут другие формы
+                      Тут другие формы Top
                     </p>
                   </ng-template>
                 </ngb-panel>
-                <ngb-panel id="static-3" title="Disabled" [disabled]="true">
-                  <ng-template ngbPanelTitle (click)="orderType('light')">
-                    Light
+                <ngb-panel id="static-3" >
+                  <ng-template ngbPanelTitle >
+                    <span>
+                      <div class="radio">
+                        <input type="radio" name="basic-radio-10" id="radio12" (click)="clickEventRadioType('Light')">
+                        <label for="radio12">Top </label>
+                      </div>
+                    </span>
+                    <hr/>
                   </ng-template>
                   <ng-template ngbPanelContent>
                     <p class="m-0">
-                      Тут другие формы
+                      Тут другие формы Top
+                    </p>
+                    <p class="m-0">
+                      Тут другие формы Top
+                    </p>
+                    <p class="m-0">
+                      Тут другие формы Top
                     </p>
                   </ng-template>
                 </ngb-panel>
               </ngb-accordion>
+              <hr/>
               <!--One open panel at a time Ends-->
             </div>
             <hr/>
@@ -346,6 +361,12 @@
                            formControlName="selectedCityIds"
                 >
                 </ng-select>
+<!--                <ng-select [items]="cities2" bindLabel="name" bindValue="id" [multiple]="true" [closeOnSelect]="false"-->
+<!--                           [formControl]="newOrderForm.controls['selectedCityIds']"-->
+<!--                           formControlName="selectedCityIds"-->
+<!--                           *ngIf="this.selectedCityIds.length > 3 ? '' : disabled"-->
+<!--                >-->
+<!--                </ng-select>-->
               </div>
               <label >
                 Select disabled
