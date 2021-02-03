@@ -1,0 +1,406 @@
+<section>
+  <form [formGroup]="newOrderForm" (ngSubmit)="submitForm()">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group">
+              <div class="input-group">
+                <input class="form-control" placeholder="yyyy-mm-dd" name="dp"
+                       [formControl]="newOrderForm.controls['date']"
+                       formControlName="date"
+                       ngbDatepicker
+                       [dayTemplate]="customDay" [markDisabled]="isDisabled" #d3="ngbDatepicker">
+                <div class="input-group-append">
+                  <div class="input-group-text" (click)="d3.toggle()">
+                    <i class="fa fa-calendar" style="cursor: pointer;"></i>
+                  </div>
+                </div>
+              </div>
+              <ng-template #customDay let-date="date" let-currentMonth="currentMonth" let-selected="selected"
+                           let-disabled="disabled">
+              <span class="custom-day" [class.weekend]="isWeekend(date)" [class.bg-primary]="selected"
+                    [class.hidden]="date.month !== currentMonth" [class.text-muted]="disabled">
+                {{ date.day }}
+              </span>
+              </ng-template>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            {{this.order.select}}
+            <div class="form-group">
+              <div class="input-group">
+                <ul class="list-unstyled mb-0">
+                  <li class="d-inline-block mr-2">
+                    <div class="radio">
+                      <input type="radio" name="basic-radio-1" id="radio1" checked (click)="clickEventRadio1()">
+                      <label for="radio1">Auto </label>
+                    </div>
+                  </li>
+                  <li class="d-inline-block mr-2">
+                    <div class="radio">
+                      <input type="radio" name="basic-radio-1" id="radio2" (click)="clickEventDisabled()">
+                      <label for="radio2">Manualy</label>
+                    </div>
+                  </li>
+                </ul>
+                <fieldset class="form-group position-relative">
+                  <input type="text"
+                         [formControl]="newOrderForm.controls['select']"
+                         formControlName="select"
+                         class="form-control"
+                         placeholder="selected"
+                         (keydown.enter)="$event.preventDefault()"
+                         required #name
+                         [attr.disabled]="this.order.select == 0 ? '' : null"/>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+          <hr/>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group">
+              <div class="input-group">
+                <fieldset class="form-group position-relative">
+                  <input type="text"
+                         [formControl]="newOrderForm.controls['name']"
+                         formControlName="name"
+                         class="form-control"
+                         placeholder="Name"
+                         (keydown.enter)="$event.preventDefault()"
+                         required #name
+                  >
+                </fieldset>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group">
+              <div class="input-group">
+                <fieldset class="form-group position-relative">
+                  <input type="text"
+                         [formControl]="newOrderForm.controls['email']"
+                         formControlName="email"
+                         class="form-control"
+                         placeholder="Email"
+                         (keydown.enter)="$event.preventDefault()"
+                         required #name
+                  >
+                </fieldset>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group">
+              <div class="input-group">
+                <fieldset class="form-group position-relative">
+                  <input type="text"
+                         [formControl]="newOrderForm.controls['website']"
+                         formControlName="website"
+                         class="form-control"
+                         placeholder="Website"
+                         (keydown.enter)="$event.preventDefault()"
+                         required #name
+                  >
+                </fieldset>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group">
+              <div class="input-group">
+                <fieldset class="form-group position-relative">
+                  <input type="text"
+                         [formControl]="newOrderForm.controls['phone']"
+                         formControlName="phone"
+                         class="form-control"
+                         placeholder="Phone"
+                         (keydown.enter)="$event.preventDefault()"
+                         required #name
+                  >
+                </fieldset>
+              </div>
+            </div>
+          </div>
+            <hr/>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <!--One open panel at a time Starts-->
+              <ngb-accordion
+                [closeOthers]="true"
+                (click)="orderType('premium')"
+                activeIds="ngb-panel-0"
+              >
+                <ngb-panel id="static-1" >
+                  <ng-template ngbPanelTitle>
+
+                    <span>
+                    <div class="radio">
+                      <input type="radio" name="basic-radio-1" id="radio1" checked (click)="clickEventRadio1()">
+                      <label for="radio1">Premium </label>
+                    </div>
+                    </span>
+                  </ng-template>
+                  <ng-template ngbPanelContent>
+                    <div class="row">
+                      <div class="col-lg-6 col-md-6 col-sm-12">
+
+<!--                        Выбор диапозона дат-->
+
+                        <div class="input-group">
+                          <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [displayMonths]="displayMonths"
+                                 [navigation]="navigation" ngbDatepicker #d="ngbDatepicker">
+                          <div class="input-group-append">
+                            <div class="input-group-text" (click)="d.toggle()">
+                              <i class="fa fa-calendar" style="cursor: pointer;"></i>
+                            </div>
+                          </div>
+                        </div>
+
+                        <hr>
+                        <div class="row">
+                          <div class="col-12 col-md-6">
+                            <p>From: {{ fromDate | json }} </p>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <p>To: {{ toDate | json }} </p>
+                          </div>
+                        </div>
+                        <!--                        Выбор диапозона дат-->
+
+                        <!--                        Чек боксы -->
+                        <div class="row">
+                          <div class="col-lg-6 col-md-6 col-sm-12">
+                            <ul class="list-unstyled mb-0">
+                              <li class="d-inline-block mr-2 mb-2">
+                                <div class="checkbox">
+                                  <input type="checkbox" id="checkbox1" checked
+                                         [formControl]="newOrderForm.controls['web3x']"
+                                         formControlName="web3x"
+                                  >
+                                  <label for="checkbox1"><span>Web 3x</span></label>
+                                </div>
+                              </li>
+                              <li class="d-inline-block mr-2 mb-2">
+                                <div class="checkbox">
+                                  <input type="checkbox" id="checkbox2" checked
+                                         [formControl]="newOrderForm.controls['radio']"
+                                         formControlName="radio"
+                                  >
+                                  <label for="checkbox2"><span>Radio</span></label>
+                                </div>
+                              </li>
+                              <li class="d-inline-block mr-2 mb-2">
+                                <div class="checkbox">
+                                  <input type="checkbox" id="checkbox3" checked
+                                         [formControl]="newOrderForm.controls['adv']"
+                                         formControlName="adv"
+                                  >
+                                  <label for="checkbox3"><span>ADV Site</span></label>
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-sm-12">
+                            <ul class="list-unstyled mb-0">
+                              <li class="d-inline-block mr-2 mb-2">
+                                <div class="checkbox">
+                                  <input type="checkbox" id="checkbox4" checked
+                                         [formControl]="newOrderForm.controls['checkbox4']"
+                                         formControlName="checkbox4"
+                                  >
+                                  <label for="checkbox4"><span>Checkbox 4</span></label>
+                                </div>
+                              </li>
+                              <li class="d-inline-block mr-2 mb-2">
+                                <div class="checkbox">
+                                  <input type="checkbox" id="checkbox5" checked
+                                         [formControl]="newOrderForm.controls['checkbox5']"
+                                         formControlName="checkbox5"
+                                  >
+                                  <label for="checkbox5"><span>Checkbox 5</span></label>
+                                </div>
+                              </li>
+                              <li class="d-inline-block mr-2 mb-2">
+                                <div class="checkbox">
+                                  <input type="checkbox" id="checkbox6" checked
+                                         [formControl]="newOrderForm.controls['checkbox6']"
+                                         formControlName="checkbox6"
+                                  >
+                                  <label for="checkbox6"><span>Checkbox 6</span></label>
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group">
+                          <h6>Duration</h6>
+                          <div class="input-group">
+                            <ul class="list-unstyled mb-0">
+                              <li class="d-inline-block mr-2">
+                                <div class="radio">
+                                  <input type="radio" name="basic-radio-1" id="radio3" checked                 (click)="multyDuration(2)"
+                                  >
+                                  <label for="radio3">2</label>
+                                </div>
+                              </li>
+                              <li class="d-inline-block mr-2">
+                                <div class="radio">
+                                  <input type="radio" name="basic-radio-1" id="radio4"
+                                         (click)="multyDuration(4)"
+                                  >
+                                  <label for="radio4">4</label>
+                                </div>
+                              </li>
+                              <li class="d-inline-block mr-2">
+                                <div class="radio">
+                                  <input type="radio" name="basic-radio-1" id="radio5"
+                                         (click)="multyDuration(6)"
+                                  >
+                                  <label for="radio5">6</label>
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+                          <div class="form-group">
+                            <div class="input-group">
+                              <fieldset class="form-group position-relative">
+                                <input type="text"
+                                       [disabled]="disabled"
+                                       [formControl]="newOrderForm.controls['phone']"
+                                       formControlName="phone"
+                                       class="form-control"
+                                       placeholder="{{this.newOrderForm.value.duration}}"
+                                       (keydown.enter)="$event.preventDefault()"
+                                       required #name
+                                       disabled
+                                >
+                              </fieldset>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </ngb-panel>
+                <ngb-panel id="static-2">
+                  <ng-template ngbPanelTitle (click)="orderType('top')">
+                                        <span>
+                    <div class="radio">
+                      <input type="radio" name="basic-radio-1" id="radio10" (click)="clickEventRadio1()">
+                      <label for="radio10">Top </label>
+                    </div>
+                    </span>
+                  </ng-template>
+                  <ng-template ngbPanelContent>
+                    <p class="m-0">
+                      Тут другие формы
+                    </p>
+                  </ng-template>
+                </ngb-panel>
+                <ngb-panel id="static-3" title="Disabled" [disabled]="true">
+                  <ng-template ngbPanelTitle (click)="orderType('light')">
+                    Light
+                  </ng-template>
+                  <ng-template ngbPanelContent>
+                    <p class="m-0">
+                      Тут другие формы
+                    </p>
+                  </ng-template>
+                </ngb-panel>
+              </ngb-accordion>
+              <!--One open panel at a time Ends-->
+            </div>
+            <hr/>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <h2>Details</h2>
+              <p>date - {{this.newOrderForm.value.date | json}}</p>
+              <p>select - {{this.order.select}}</p>
+              <p>name - {{this.newOrderForm.value.name}}</p>
+              <p>email - {{this.newOrderForm.value.email}}</p>
+              <p>website - {{this.newOrderForm.value.website}}</p>
+              <p>phone - {{this.newOrderForm.value.phone}}</p>
+              <p>orderType - {{this.order.orderType}}</p>
+              <p>orderType - {{this.newOrderForm.value.orderType}}</p>
+              <p>top - {{this.newOrderForm.value.top}}</p>
+              <p>light - {{this.newOrderForm.value.light}}</p>
+              <p>period - {{this.newOrderForm.value.period}}</p>
+              <p>web3x - {{this.newOrderForm.value.web3x}}</p>
+              <p>radio - {{this.newOrderForm.value.radio}}</p>
+              <p>adv - {{this.newOrderForm.value.adv}}</p>
+              <p>checkbox4 - {{this.newOrderForm.value.checkbox4}}</p>
+              <p>checkbox5 - {{this.newOrderForm.value.checkbox5}}</p>
+              <p>checkbox6 - {{this.newOrderForm.value.checkbox6}}</p>
+              <p>selectedCityIds - {{this.newOrderForm.value.selectedCityIds}}</p>
+              <p>radio_text - {{this.newOrderForm.value.radio_text}}</p>
+              <p>adv_site - {{this.newOrderForm.value.adv_site}}</p>
+              <p>comment - {{this.newOrderForm.value.comment}}</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <h6>Multiselect with custom bindings</h6>
+              <p>Use <code>[multiple]="true"</code> to Select multiple elements</p>
+              <div class="form-group">
+                <ng-select [items]="cities2" bindLabel="name" bindValue="id" [multiple]="true" [closeOnSelect]="false"
+                           [formControl]="newOrderForm.controls['selectedCityIds']"
+                           formControlName="selectedCityIds"
+                >
+                </ng-select>
+              </div>
+              <label >
+                Select disabled
+              </label>
+              <select
+                      [formControl]="newOrderForm.controls['radio_text']"
+                      formControlName="radio_text" class="form-control"
+              >
+                <option value="select">Активно</option>
+                <option value="disabled">Не активно</option>
+              </select>
+              <input type="text"
+                     [formControl]="newOrderForm.controls['select']"
+                     formControlName="select"
+                     class="form-control"
+                     placeholder="Мое радио"
+                     (keydown.enter)="$event.preventDefault()"
+                     required #name
+                     [attr.disabled]="this.newOrderForm.value.radio_text === 'disabled' ? '' : null"/>
+
+
+              <label >
+                Radio disabled
+              </label>
+              <select
+                      [formControl]="newOrderForm.controls['radio_text']"
+                      formControlName="radio_text" class="form-control"
+              >
+                <option value="select">Активно</option>
+                <option value="disabled">Не активно</option>
+              </select>
+              <input type="text"
+                     [formControl]="newOrderForm.controls['select']"
+                     formControlName="select"
+                     class="form-control"
+                     placeholder="Мое радио"
+                     (keydown.enter)="$event.preventDefault()"
+                     required #name
+                     [attr.disabled]="this.newOrderForm.value.radio_text === 'disabled' ? '' : null"/>
+
+              <textarea rows="10" cols="45" name="text"
+                        [formControl]="newOrderForm.controls['comment']"
+                        formControlName="comment"
+                        class="form-control"
+              ></textarea>
+
+            </div>
+          </div>
+        </div>
+      <div class="card-footer">
+        <button class="btn btn-primary btn-save">
+          Сохранить
+        </button>
+      </div>
+    </div>
+  </form>
+
+</section>
